@@ -3,205 +3,109 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Дым и мясо: меню</title>
-<meta name="theme-color" content="#14100d">
+<title>Дым & Мясо: меню и заказ</title>
+<meta name="description" content="Маринованные стейки, шашлык, колбаски мергез и домашняя тушёнка. Алхан-Юрт. Заказ в WhatsApp за минуту.">
+<meta name="theme-color" content="#0e0b0a">
+<meta property="og:title" content="Дым & Мясо: меню и заказ">
+<meta property="og:description" content="Стейки, шашлык, мергез, тушёнка. Соберите заказ и отправьте в WhatsApp.">
+<meta property="og:image" content="img/steak_plate.webp">
+<link rel="icon" href="img/logo.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#14100d; --card:#1f1813; --card2:#2a2019; --line:#3a2c22;
-    --text:#f5ede6; --muted:#b5a597; --fire:#ff6a1a; --fire2:#ffb347; --ok:#25d366;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--bg);color:var(--text);font:15px/1.4 Inter,system-ui,sans-serif;padding-bottom:110px}
-  .demo{background:var(--fire);color:#1a0f08;font-weight:700;text-align:center;font-size:13px;padding:6px 16px}
-  header{padding:28px 16px 18px;text-align:center;background:radial-gradient(120% 90% at 50% 0%,#4a2412 0%,var(--bg) 70%)}
-  .logo{font:700 34px/1 Oswald,sans-serif;letter-spacing:1px;text-transform:uppercase}
-  .logo span{color:var(--fire)}
-  .sub{color:var(--muted);margin-top:8px;font-size:14px}
-  .chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px}
-  .chip{border:1px solid var(--line);background:var(--card);border-radius:20px;padding:5px 12px;font-size:13px;color:var(--muted)}
-  nav{position:sticky;top:0;z-index:5;background:rgba(20,16,13,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:flex;gap:8px;overflow-x:auto;padding:10px 16px;scrollbar-width:none}
-  nav::-webkit-scrollbar{display:none}
-  nav button{flex:none;background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:20px;padding:8px 14px;font:600 14px Inter;cursor:pointer}
-  nav button.on{background:var(--fire);border-color:var(--fire);color:#1a0f08}
-  main{max-width:720px;margin:0 auto;padding:0 16px}
-  h2{font:700 22px Oswald,sans-serif;text-transform:uppercase;margin:24px 0 12px;scroll-margin-top:70px}
-  .grid{display:grid;gap:12px}
-  @media(min-width:600px){.grid{grid-template-columns:1fr 1fr}}
-  .item{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
-  .pic{height:120px;display:flex;align-items:center;justify-content:center;font-size:56px;background:linear-gradient(135deg,#3b1d0e,#1f1813 60%)}
-  .body{padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
-  .name{font-weight:700;font-size:16px}
-  .desc{color:var(--muted);font-size:13px;flex:1}
-  .row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:6px}
-  .price{font:700 18px Oswald,sans-serif;color:var(--fire2)}
-  .price small{font:400 12px Inter;color:var(--muted)}
-  .add{background:var(--fire);color:#1a0f08;border:0;border-radius:12px;padding:10px 16px;font:700 14px Inter;cursor:pointer;min-height:44px}
-  .qty{display:flex;align-items:center;gap:4px;background:var(--card2);border-radius:12px;padding:3px}
-  .qty button{width:38px;height:38px;border:0;border-radius:10px;background:var(--line);color:var(--text);font-size:20px;cursor:pointer}
-  .qty b{min-width:58px;text-align:center;font-size:14px}
-  .bar{position:fixed;left:0;right:0;bottom:0;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(transparent,var(--bg) 30%);z-index:10;display:none}
-  .bar.show{display:block}
-  .bar button{width:100%;max-width:688px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;background:var(--fire);color:#1a0f08;border:0;border-radius:16px;padding:16px 18px;font:700 16px Inter;cursor:pointer;box-shadow:0 8px 30px rgba(255,106,26,.35)}
-  .sheet{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:20;display:none;align-items:flex-end;justify-content:center}
-  .sheet.show{display:flex}
-  .panel{background:var(--card);width:100%;max-width:720px;max-height:92vh;overflow-y:auto;border-radius:20px 20px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom))}
-  .ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-  .ph h3{font:700 22px Oswald,sans-serif;text-transform:uppercase}
-  .x{background:var(--card2);border:0;color:var(--text);width:40px;height:40px;border-radius:12px;font-size:20px;cursor:pointer}
-  .line{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
-  .line .n{font-weight:600}
-  .line .m{color:var(--muted);font-size:13px}
-  .tot{display:flex;justify-content:space-between;font:700 22px Oswald,sans-serif;margin:14px 0}
-  .tot span:last-child{color:var(--fire2)}
-  label{display:block;font-size:13px;color:var(--muted);margin:10px 0 4px}
-  input,textarea{width:100%;background:var(--card2);border:1px solid var(--line);color:var(--text);border-radius:12px;padding:12px;font:15px Inter}
-  .seg{display:flex;gap:8px}
-  .seg button{flex:1;background:var(--card2);border:1px solid var(--line);color:var(--text);border-radius:12px;padding:12px;font:600 14px Inter;cursor:pointer}
-  .seg button.on{border-color:var(--fire);color:var(--fire2)}
-  .send{width:100%;border:0;border-radius:14px;padding:16px;font:700 16px Inter;cursor:pointer;margin-top:14px}
-  .wa{background:var(--ok);color:#06240f}
-  .ig{background:var(--card2);color:var(--text);border:1px solid var(--line)}
-  .note{color:var(--muted);font-size:12px;text-align:center;margin-top:10px}
-  .toast{position:fixed;left:50%;bottom:100px;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 16px;border-radius:12px;font-weight:600;z-index:30;display:none}
-  footer{color:var(--muted);text-align:center;font-size:13px;padding:30px 16px}
-  footer a{color:var(--fire2)}
-</style>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="demo">ДЕМО-ВЕРСИЯ. Цены примерные.</div>
-<header>
-  <div class="logo">Дым <span>и</span> мясо</div>
-  <div class="sub">Стейки, шашлык и колбаски на заказ<br>Шеф Ахьмад, Алхан-Юрт</div>
-  <div class="chips"><span class="chip">🔥 Маринуем сами</span><span class="chip">🥩 Свежее мясо</span><span class="chip">📦 Готовим под заказ</span></div>
+<div class="demo" id="demo" hidden>Демо-версия. Цены примерные.</div>
+
+<header class="hero">
+  <img class="hero-bg" src="img/steak_plate.webp" alt="">
+  <div class="hero-in">
+    <img class="logo" src="img/logo.webp" alt="Логотип Дым & Мясо" width="120" height="120">
+    <h1>Дым <span>&</span> Мясо</h1>
+    <p class="slogan" id="slogan"></p>
+    <div class="chips">
+      <span class="chip halal">✓ Halal</span>
+      <span class="chip">Маринуем сами</span>
+      <span class="chip" id="place"></span>
+    </div>
+    <a class="cta" href="#menu">Смотреть меню</a>
+  </div>
 </header>
-<nav id="nav"></nav>
+
+<nav class="cats" id="cats" aria-label="Разделы меню"></nav>
+
 <main id="menu"></main>
-<footer>Заказ по телефону: <a href="tel:+79289483331">8 (928) 948-33-31</a><br>Instagram: <a href="https://www.instagram.com/dim_i_myaso95/" target="_blank" rel="noopener">@dim_i_myaso95</a></footer>
 
-<div class="bar" id="bar"><button id="openCart"><span id="barCount">Корзина</span><span id="barSum">0 ₽</span></button></div>
+<section class="block">
+  <h2>Отзывы</h2>
+  <div class="reviews" id="reviews"></div>
+</section>
 
-<div class="sheet" id="sheet">
-  <div class="panel">
-    <div class="ph"><h3>Ваш заказ</h3><button class="x" id="close" aria-label="Закрыть">✕</button></div>
-    <div id="lines"></div>
-    <div class="tot"><span>Итого</span><span id="total">0 ₽</span></div>
-    <div class="seg" id="way"><button class="on" data-v="Самовывоз">Самовывоз</button><button data-v="Доставка">Доставка</button></div>
-    <div id="addrBox" style="display:none"><label>Адрес доставки</label><input id="addr" placeholder="Село, улица, дом"></div>
-    <label>Ваше имя</label><input id="name" placeholder="Как к вам обращаться">
-    <label>Когда нужно</label><input id="when" placeholder="Например: завтра к 18:00">
-    <label>Комментарий</label><textarea id="comment" rows="2" placeholder="Прожарка, острота, нарезка"></textarea>
-    <button class="send wa" id="sendWa">Отправить заказ в WhatsApp</button>
-    <button class="send ig" id="sendIg">Скопировать и открыть Instagram</button>
-    <div class="note">Заказ уйдёт продавцу готовым сообщением. Оплата при получении.</div>
+<section class="block">
+  <h2>Как заказать</h2>
+  <ol class="steps">
+    <li><b>Выберите товары.</b> Мясо на вес, шаг 0,5 кг. Корзина сама считает сумму.</li>
+    <li><b>Укажите детали.</b> Самовывоз или доставка, время, пожелания по маринаду.</li>
+    <li><b>Отправьте заказ.</b> Он придёт шефу в WhatsApp готовым сообщением.</li>
+  </ol>
+</section>
+
+<footer class="foot">
+  <img src="img/logo.webp" alt="" width="64" height="64">
+  <p id="chef"></p>
+  <p><a id="tel" href="#"></a></p>
+  <p><a id="insta" href="#" target="_blank" rel="noopener"></a></p>
+</footer>
+
+<div class="bar" id="bar">
+  <button class="bar-btn" id="openCart" type="button">
+    <span class="bar-count" id="barCount">0</span>
+    <span>Корзина</span>
+    <span class="bar-sum" id="barSum">0 ₽</span>
+  </button>
+</div>
+
+<!-- Подробности товара -->
+<div class="sheet" id="details" aria-hidden="true">
+  <div class="panel" role="dialog" aria-modal="true" aria-labelledby="dName">
+    <button class="x" data-close type="button" aria-label="Закрыть">✕</button>
+    <img class="d-img" id="dImg" alt="">
+    <div class="d-body">
+      <h3 id="dName"></h3>
+      <p class="d-desc" id="dDesc"></p>
+      <div class="d-row">
+        <div class="price" id="dPrice"></div>
+        <div id="dCtl"></div>
+      </div>
+    </div>
   </div>
 </div>
-<div class="toast" id="toast"></div>
 
-<script>
-const PHONE = "79289483331";
-const IG = "dim_i_myaso95";
-// unit: "kg" считается по 0,5 кг, "pcs" по штукам
-const MENU = [
-  {cat:"Маринованные стейки", items:[
-    {id:"ribeye", e:"🥩", n:"Стейк рибай", d:"Говядина, фирменный маринад. Готов к жарке.", p:2200, u:"kg"},
-    {id:"striploin", e:"🥩", n:"Стейк стриплойн", d:"Нежная говядина, маринад с травами.", p:2000, u:"kg"},
-    {id:"lambsteak", e:"🍖", n:"Стейк из баранины", d:"Баранья корейка в маринаде.", p:1900, u:"kg"},
-  ]},
-  {cat:"Шашлык", items:[
-    {id:"shlamb", e:"🍢", n:"Шашлык из баранины", d:"Маринованный, на шампуры.", p:1500, u:"kg"},
-    {id:"shbeef", e:"🍢", n:"Шашлык из говядины", d:"Мякоть, маринад шефа.", p:1400, u:"kg"},
-    {id:"shchick", e:"🍗", n:"Шашлык из курицы", d:"Бедро в маринаде.", p:700, u:"kg"},
-  ]},
-  {cat:"Колбаски", items:[
-    {id:"merguez", e:"🌭", n:"Колбаски мергез", d:"Баранина и говядина, пряные специи.", p:1300, u:"kg"},
-    {id:"grill", e:"🌭", n:"Колбаски гриль", d:"Говядина, для мангала и сковороды.", p:1100, u:"kg"},
-  ]},
-  {cat:"Тушёнка", items:[
-    {id:"stewbeef", e:"🥫", n:"Тушёнка из говядины", d:"Банка 0,5 л. Домашняя.", p:550, u:"pcs"},
-    {id:"stewlamb", e:"🥫", n:"Тушёнка из баранины", d:"Банка 0,5 л. Домашняя.", p:600, u:"pcs"},
-  ]},
-];
-const ALL = Object.fromEntries(MENU.flatMap(c=>c.items).map(i=>[i.id,i]));
-const cart = {};
-const step = i => i.u==="kg" ? 0.5 : 1;
-const fmtQ = (i,q) => i.u==="kg" ? (q.toString().replace(".",","))+" кг" : q+" шт";
-const rub = v => Math.round(v).toLocaleString("ru-RU")+" ₽";
-const unitTxt = i => i.u==="kg" ? "/ кг" : "/ шт";
+<!-- Корзина -->
+<div class="sheet" id="cart" aria-hidden="true">
+  <div class="panel pad" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+    <div class="ph"><h3 id="cartTitle">Ваш заказ</h3><button class="x" data-close type="button" aria-label="Закрыть">✕</button></div>
+    <div id="lines"></div>
+    <button class="clear" id="clear" type="button">Очистить корзину</button>
+    <div class="tot"><span>Итого</span><span id="total">0 ₽</span></div>
+    <div class="seg" id="way">
+      <button class="on" data-v="Самовывоз" type="button">Самовывоз</button>
+      <button data-v="Доставка" type="button">Доставка</button>
+    </div>
+    <div id="addrBox" hidden><label for="addr">Адрес доставки</label><input id="addr" autocomplete="street-address" placeholder="Село, улица, дом"></div>
+    <label for="name">Ваше имя</label><input id="name" autocomplete="given-name" placeholder="Как к вам обращаться">
+    <label for="when">Когда нужно</label><input id="when" placeholder="Например: сегодня к 19:00">
+    <label for="comment">Пожелания</label><textarea id="comment" rows="2" placeholder="Острее, без лука, нарезать потоньше"></textarea>
+    <button class="send wa" id="sendWa" type="button">Отправить заказ в WhatsApp</button>
+    <button class="send ig" id="sendIg" type="button">Скопировать заказ для Instagram</button>
+    <p class="note">Шеф ответит и подтвердит заказ. Оплата при получении.</p>
+  </div>
+</div>
 
-function render(){
-  const nav = document.getElementById("nav"), menu = document.getElementById("menu");
-  nav.innerHTML = MENU.map((c,k)=>`<button data-k="${k}" class="${k?"":"on"}">${c.cat}</button>`).join("");
-  menu.innerHTML = MENU.map((c,k)=>`<h2 id="c${k}">${c.cat}</h2><div class="grid">${c.items.map(i=>`
-    <div class="item"><div class="pic">${i.e}</div><div class="body">
-      <div class="name">${i.n}</div><div class="desc">${i.d}</div>
-      <div class="row"><div class="price">${rub(i.p)} <small>${unitTxt(i)}</small></div><div id="ctl-${i.id}"></div></div>
-    </div></div>`).join("")}</div>`).join("");
-  nav.onclick = e => { const b=e.target.closest("button"); if(!b) return;
-    document.getElementById("c"+b.dataset.k).scrollIntoView({behavior:"smooth"}); };
-  MENU.flatMap(c=>c.items).forEach(drawCtl);
-}
-function drawCtl(i){
-  const el = document.getElementById("ctl-"+i.id), q = cart[i.id]||0;
-  el.innerHTML = q ? `<div class="qty"><button data-a="-">−</button><b>${fmtQ(i,q)}</b><button data-a="+">+</button></div>`
-                   : `<button class="add">В корзину</button>`;
-  el.onclick = e => { const b=e.target.closest("button"); if(!b) return;
-    change(i.id, b.dataset.a==="-" ? -1 : 1); };
-}
-function change(id, dir){
-  const i = ALL[id]; let q = (cart[id]||0) + dir*step(i);
-  q = Math.round(q*10)/10;
-  if(q<=0) delete cart[id]; else cart[id]=q;
-  drawCtl(i); update();
-}
-function sum(){ return Object.entries(cart).reduce((s,[id,q])=>s+ALL[id].p*q,0); }
-function update(){
-  const n = Object.keys(cart).length, s = sum();
-  document.getElementById("bar").classList.toggle("show", n>0);
-  document.getElementById("barCount").textContent = "Корзина · "+n+" поз.";
-  document.getElementById("barSum").textContent = rub(s);
-  document.getElementById("lines").innerHTML = Object.entries(cart).map(([id,q])=>{const i=ALL[id]; return `
-    <div class="line"><div><div class="n">${i.n}</div><div class="m">${rub(i.p)} ${unitTxt(i)} · ${rub(i.p*q)}</div></div>
-    <div class="qty" data-id="${id}"><button data-a="-">−</button><b>${fmtQ(i,q)}</b><button data-a="+">+</button></div></div>`}).join("");
-  document.getElementById("total").textContent = rub(s);
-  if(!n) closeSheet();
-}
-document.getElementById("lines").onclick = e => { const b=e.target.closest("button"); if(!b) return;
-  change(b.parentElement.dataset.id, b.dataset.a==="-" ? -1 : 1); };
+<div class="toast" id="toast" role="status"></div>
 
-let way = "Самовывоз";
-document.getElementById("way").onclick = e => { const b=e.target.closest("button"); if(!b) return;
-  way=b.dataset.v; [...e.currentTarget.children].forEach(x=>x.classList.toggle("on",x===b));
-  document.getElementById("addrBox").style.display = way==="Доставка" ? "block" : "none"; };
-
-const sheet = document.getElementById("sheet");
-function closeSheet(){ sheet.classList.remove("show"); }
-document.getElementById("openCart").onclick = () => sheet.classList.add("show");
-document.getElementById("close").onclick = closeSheet;
-sheet.onclick = e => { if(e.target===sheet) closeSheet(); };
-
-function orderText(){
-  const v = id => document.getElementById(id).value.trim();
-  const lines = Object.entries(cart).map(([id,q],k)=>{const i=ALL[id];
-    return `${k+1}. ${i.n}: ${fmtQ(i,q)} = ${rub(i.p*q)}`;});
-  let t = "Ассаламу алейкум! Хочу сделать заказ:\n\n"+lines.join("\n")+"\n\nИтого: "+rub(sum())+"\nПолучение: "+way;
-  if(way==="Доставка" && v("addr")) t += "\nАдрес: "+v("addr");
-  if(v("name")) t += "\nИмя: "+v("name");
-  if(v("when")) t += "\nКогда: "+v("when");
-  if(v("comment")) t += "\nКомментарий: "+v("comment");
-  return t;
-}
-function toast(msg){ const t=document.getElementById("toast"); t.textContent=msg; t.style.display="block"; setTimeout(()=>t.style.display="none",2500); }
-document.getElementById("sendWa").onclick = () => {
-  window.open("https://wa.me/"+PHONE+"?text="+encodeURIComponent(orderText()), "_blank");
-};
-document.getElementById("sendIg").onclick = async () => {
-  try { await navigator.clipboard.writeText(orderText()); toast("Заказ скопирован. Вставьте его в чат."); }
-  catch(e){ toast("Не удалось скопировать"); }
-  setTimeout(()=>window.open("https://ig.me/m/"+IG, "_blank"), 600);
-};
-render(); update();
-</script>
+<script src="data/menu.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
