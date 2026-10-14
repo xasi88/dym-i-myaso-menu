@@ -1,0 +1,13 @@
+# Секреты и локальные настройки
+.env
+*.local
+secrets/
+.claude/settings.local.json
+
+# Рабочие материалы из Instagram (только для нас, не публикуем)
+raw/
+
+# Служебное
+.DS_Store
+Thumbs.db
+.obsidian/workspace*.json
